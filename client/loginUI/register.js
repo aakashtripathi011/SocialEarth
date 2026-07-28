@@ -1,3 +1,5 @@
+const form = document.getElementById("register-form");
+
 const slides = [
   {
     image: "images/img1.jpeg",
@@ -55,4 +57,28 @@ prevButton.addEventListener("click", function () {
     currentSlide = slides.length - 1;
   }
   showSlide();
+});
+
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const response = await fetch("http://localhost:3000/register", {
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  });
+
+  const data = await response.json();
+
+  console.log(data);
 });

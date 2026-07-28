@@ -1,10 +1,12 @@
 const express = require("express");
 const { MongoClient } = require("mongodb");
+const path = require("path");
 
 const app = express();
 
 // Allows Express to read JSON sent from the frontend
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../client/loginUI")));
 
 // MongoDB Connection
 const url = "mongodb://127.0.0.1:27017";
