@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+social-backend/node_modules/
+
+# Environment variables
+.env
+
+# VS Code settings
+.vscode/

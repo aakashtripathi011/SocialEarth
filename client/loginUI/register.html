@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Social Earth - Register</title>
+
+    <link rel="stylesheet" href="register.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left-panel">
+        <div class="carousel">
+          <img id="carousel-image" src="images/img1.jpeg" alt="" />
+
+          <h2 id="carousel-title">Connect</h2>
+
+          <p id="carousel-text">Meet people from around the world.</p>
+
+          <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+
+          <div class="buttons">
+            <button id="prev">❮</button>
+            <button id="next">❯</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="logo-section">
+          <h1>Create Account</h1>
+          <p>Join SocialEarth</p>
+        </div>
+
+        <form id="registerForm">
+          <div class="input-group">
+            <label for="email">Email</label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <button type="submit">Create Account</button>
+
+          <div class="create-account">
+            <p>Already have an account?</p>
+            <a href="index.html">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="register.js"></script>
+  </body>
+</html>
