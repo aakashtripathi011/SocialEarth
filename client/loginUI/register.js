@@ -1,5 +1,4 @@
 const form = document.getElementById("register-form");
-
 const slides = [
   {
     image: "images/img1.jpeg",
