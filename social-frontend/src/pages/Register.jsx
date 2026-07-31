@@ -4,12 +4,14 @@ import img1 from "../assets/img1.jpeg";
 import img2 from "../assets/img2.jpeg";
 import img3 from "../assets/img3.jpeg";
 
+import { Link } from "react-router-dom";
+
 function Register() {
   return (
     <div className="container">
       <div className="left-panel">
         <div className="carousel">
-          <img id="carousel-image" src={img1}/>
+          <img id="carousel-image" src={img1} />
 
           <h2 id="carousel-title">Connect</h2>
 
@@ -65,7 +67,7 @@ function Register() {
 
           <div className="create-account">
             <p>Already have an account?</p>
-            <a href="index.html">Login</a>
+            <Link to="/login">Login</Link>
           </div>
         </form>
       </div>

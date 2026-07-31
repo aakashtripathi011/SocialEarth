@@ -2,6 +2,7 @@ import "../styles/Login.css";
 import img1 from "../assets/img1.jpeg";
 import img2 from "../assets/img2.jpeg";
 import img3 from "../assets/img3.jpeg";
+import { Link } from "react-router-dom";
 function Login() {
   return (
     <div className="container">
@@ -51,7 +52,7 @@ function Login() {
 
             <div className="create-account">
               <p>Don't have an account?</p>
-              <a href="register.html">Create Account</a>
+              <Link to="/register">Create Account</Link>
             </div>
           </div>
         </form>
