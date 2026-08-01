@@ -1,8 +1,11 @@
+const cors = require("cors");
 const express = require("express");
+
 const { MongoClient } = require("mongodb");
 const path = require("path");
 
 const app = express();
+app.use(cors());
 
 // Allows Express to read JSON sent from the frontend
 app.use(express.json());
@@ -43,6 +46,17 @@ app.get("/", (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     const user = req.body;
+
+    const existingUser = await usersCollection.findOne({
+      email: user.email,
+    });
+
+    if (existingUser) {
+      return res.json({
+        success: false,
+        message: "Email already exists",
+      });
+    }
 
     console.log(user);
 

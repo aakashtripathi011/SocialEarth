@@ -4,9 +4,33 @@ import img1 from "../assets/img1.jpeg";
 import img2 from "../assets/img2.jpeg";
 import img3 from "../assets/img3.jpeg";
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const response = await fetch("http://localhost:3000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+
+    console.log(email);
+    console.log(password);
+  }
   return (
     <div className="container">
       <div className="left-panel">
@@ -36,7 +60,7 @@ function Register() {
           <p>Join SocialEarth</p>
         </div>
 
-        <form id="register-form">
+        <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
 
@@ -46,6 +70,7 @@ function Register() {
               name="email"
               placeholder="Enter your email"
               required
+              onChange={(event) => setEmail(event.target.value)}
             />
           </div>
 
@@ -58,6 +83,7 @@ function Register() {
               name="password"
               placeholder="Enter your password"
               required
+              onChange={(event) => setPassword(event.target.value)}
             />
           </div>
 
