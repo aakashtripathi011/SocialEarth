@@ -26,6 +26,11 @@ function Register() {
 
     const data = await response.json();
 
+    if (data.success) {
+      setEmail("");
+      setPassword("");
+    }
+
     console.log(data);
 
     console.log(email);
@@ -70,6 +75,7 @@ function Register() {
               name="email"
               placeholder="Enter your email"
               required
+              value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
@@ -83,6 +89,7 @@ function Register() {
               name="password"
               placeholder="Enter your password"
               required
+              value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
