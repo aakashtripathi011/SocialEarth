@@ -1,4 +1,5 @@
 import "../styles/Register.css";
+import { useNavigate } from "react-router-dom";
 
 import img1 from "../assets/img1.jpeg";
 import img2 from "../assets/img2.jpeg";

@@ -1,9 +1,41 @@
 import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
 import img1 from "../assets/img1.jpeg";
 import img2 from "../assets/img2.jpeg";
 import img3 from "../assets/img3.jpeg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (data.success) {
+      navigate("/feed");
+    } else {
+      alert(data.message);
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="left-panel">
@@ -20,7 +52,7 @@ function Login() {
           <p>Connect. Jam. Create.</p>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
 
@@ -29,6 +61,8 @@ function Login() {
               id="email"
               name="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -40,6 +74,8 @@ function Login() {
               id="password"
               name="password"
               placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 

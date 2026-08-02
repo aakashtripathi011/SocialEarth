@@ -76,6 +76,29 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const existingUser = await usersCollection.findOne({
+    email,
+  });
+  if (!existingUser) {
+    return res.json({
+      success: false,
+      message: "User does not exist",
+    });
+  }
+  if (existingUser.password !== password) {
+    return res.json({
+      success: false,
+      message: "Incorrect password",
+    });
+  }
+  return res.json({
+    success: true,
+    message: "Login Successful",
+  });
+});
+
 app.listen(3000, () => {
   console.log("🚀 Server started on port 3000");
 });
