@@ -104,7 +104,7 @@ input:focus {
   border-color: #2563eb;
 }
 
-button {
+#loginbtn {
   width: 100%;
   padding: 15px;
   border: none;

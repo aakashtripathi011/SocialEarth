@@ -5,7 +5,7 @@ import img3 from "../assets/img3.jpeg";
 import { Link } from "react-router-dom";
 function Login() {
   return (
-    <div className="container">
+    <div className="login-container">
       <div className="left-panel">
         <div className="image-section">
           <img src={img1} className="img1" alt="" />
@@ -43,7 +43,9 @@ function Login() {
             />
           </div>
 
-          <button type="submit">Login</button>
+          <button id="loginbtn" type="submit">
+            Login
+          </button>
 
           <div className="alternate">
             <div className="forget-password">

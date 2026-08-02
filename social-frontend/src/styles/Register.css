@@ -4,10 +4,14 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 body {
   background: #111827;
-
   color: white;
+  min-height: 100vh;
+}
+
+.register-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -29,11 +33,6 @@ body {
 }
 
 .logo-section {
-  margin-bottom: 30px;
-  font-size: 20px;
-}
-
-.logo-section {
   margin-bottom: 35px;
 }
 
@@ -51,23 +50,23 @@ body {
   margin-bottom: 18px;
 }
 
-label {
+.input-group label {
   display: block;
   margin-bottom: 8px;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-input {
+.input-group input {
   width: 100%;
   padding: 14px;
   border-radius: 12px;
   border: 1px solid #334155;
-  background-color: #152238;
+  background: #152238;
   color: white;
   font-size: 16px;
 }
 
-button {
+#create-btn {
   width: 100%;
   padding: 14px;
   border-radius: 14px;
@@ -76,7 +75,6 @@ button {
   cursor: pointer;
   margin-top: 10px;
   margin-bottom: 10px;
-  text-align: center;
 }
 
 .create-account {
@@ -137,6 +135,8 @@ button {
   font-size: 22px;
   background: #1e293b;
   color: white;
+  border: none;
+  cursor: pointer;
 }
 
 .buttons button:hover {
