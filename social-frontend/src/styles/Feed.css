@@ -3,7 +3,7 @@
   width: 100vw;
   min-height: 100vh;
   background-color: #000000;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .main-content {
