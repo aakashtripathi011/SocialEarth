@@ -1,13 +1,20 @@
 .sidebar {
-  width: 240px;
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  width: 260px;
   height: 100vh;
+
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
-  left: 2px;
 
-  padding: 20px;
-  overflow-y: hidden;
+  border-right: 1px solid #262626;
+
+  background: #000;
 }
 
 .sidebar-btn {

@@ -1,4 +1,5 @@
 import "../styles/Sidebar.css";
+import { Link } from "react-router-dom";
 function Sidebar() {
   return (
     <div className="sidebar">
@@ -8,7 +9,11 @@ function Sidebar() {
       <button className="sidebar-btn">➕ Create</button>
       <button className="sidebar-btn">🤍 Notifications</button>
       <button className="sidebar-btn">💬 Messages</button>
-      <button className="sidebar-btn">👤 Profile</button>
+
+      <Link to="/profile">
+        <button className="sidebar-btn">👤 Profile</button>
+      </Link>
+
       <button className="sidebar-btn">⚙ Settings</button>
       <button className="sidebar-btn"> ☰ More</button>
     </div>
