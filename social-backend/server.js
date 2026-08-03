@@ -99,6 +99,63 @@ app.post("/login", async (req, res) => {
   });
 });
 
+app.post("/update-profile", async (req, res) => {
+  console.log("Profile route hit");
+  try {
+    const { email, name, username, bio } = req.body;
+
+    await usersCollection.updateOne(
+      { email },
+      {
+        $set: {
+          name,
+          username,
+          bio,
+        },
+      },
+    );
+
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+    });
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.get("/profile", async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    const user = await usersCollection.findOne({ email });
+
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      user,
+    });
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.listen(3000, () => {
   console.log("🚀 Server started on port 3000");
 });

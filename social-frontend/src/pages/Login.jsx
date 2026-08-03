@@ -30,6 +30,7 @@ function Login() {
     console.log(data);
 
     if (data.success) {
+      localStorage.setItem("email", email);
       navigate("/feed");
     } else {
       alert(data.message);

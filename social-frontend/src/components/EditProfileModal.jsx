@@ -1,7 +1,9 @@
 import "../styles/EditProfileModal.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function EditProfileModal({ setShowModal }) {
   const [profileImage, setProfileImage] = useState(null);
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
@@ -15,6 +17,8 @@ function EditProfileModal({ setShowModal }) {
       },
 
       body: JSON.stringify({
+        email: localStorage.getItem("email"),
+
         name,
         username,
         bio,
@@ -27,7 +31,11 @@ function EditProfileModal({ setShowModal }) {
     console.log(data);
 
     if (data.success) {
-      alert("Profile Updated!");
+      setShowModal(false);
+      navigate("/profile");
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } else {
       alert(data.message);
     }

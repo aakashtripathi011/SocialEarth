@@ -2,10 +2,36 @@ import "../styles/Profile.css";
 import EditProfileModal from "../components/EditProfileModal";
 import Sidebar from "../components/Sidebar";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Profile() {
   const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const fetchProfile = async () => {
+    console.log(localStorage.getItem("email"));
+
+    const url = `http://localhost:3000/profile?email=${localStorage.getItem("email")}`;
+
+    console.log(url);
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+    console.log(data);
+
+    if (data.success) {
+      setUser(data.user);
+      console.log(data.user);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  console.log(user);
+
   return (
     <div className="profile-container">
       <Sidebar />
@@ -13,9 +39,9 @@ function Profile() {
         <div className="profile-picture"></div>
 
         <div className="profile-info">
-          <h2>Aakash Tripathi 🍁</h2>
+          <h2>{user?.name}</h2>
 
-          <p>@MANWITHHEADACHE</p>
+          <p>@{user?.username}</p>
           <div className="profile-stats">
             <div className="stat">
               <h3>0</h3>
@@ -33,10 +59,7 @@ function Profile() {
             </div>
           </div>
 
-          <p>
-            To be me or nothing at all <br />
-            TO BE OR NOT TO BE
-          </p>
+          <p>{user?.bio}</p>
           <div className="btns">
             <button className="profile-btn" onClick={() => setShowModal(true)}>
               Edit Profile
