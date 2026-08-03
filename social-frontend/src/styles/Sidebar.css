@@ -12,14 +12,12 @@
   display: flex;
   flex-direction: column;
 
-  border-right: 1px solid #262626;
-
-  background: #000;
+  background: #111111;
 }
 
 .sidebar-btn {
   width: 100%;
-  padding: 14px 18px;
+  padding: 18px 18px;
 
   background: transparent;
   color: white;
@@ -28,6 +26,7 @@
   border-radius: 12px;
 
   font-size: 18px;
+  font-weight: bold;
   text-align: left;
 
   cursor: pointer;
