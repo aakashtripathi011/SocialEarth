@@ -4,8 +4,13 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <h1>SocialEarth</h1>
-      <button className="sidebar-btn">🏠 Home</button>
-      <button className="sidebar-btn">🔍 Search</button>
+      <Link to="/Feed">
+        <button className="sidebar-btn">🏠 Home</button>
+      </Link>
+
+      <Link to="/Search">
+        <button className="sidebar-btn">🔍 Search</button>
+      </Link>
       <button className="sidebar-btn">➕ Create</button>
       <button className="sidebar-btn">🤍 Notifications</button>
       <button className="sidebar-btn">💬 Messages</button>
