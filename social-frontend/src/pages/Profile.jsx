@@ -9,6 +9,9 @@ function Profile() {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState(null);
   const { email } = useParams();
+
+  const isOwnProfile = email === localStorage.getItem("email");
+  
   console.log("Email from URL:", email);
 
   const fetchProfile = async () => {
@@ -68,11 +71,26 @@ function Profile() {
 
           <p>{user?.bio}</p>
           <div className="btns">
-            <button className="profile-btn" onClick={() => setShowModal(true)}>
+            {isOwnProfile? (
+              <>
+              <button className="profile-btn" onClick={() => setShowModal(true)}>
               Edit Profile
             </button>
 
             <button className="profile-btn">View Archive</button>
+            </>
+            ) : (
+               <>
+      <button className="profile-btn">
+        Follow
+      </button>
+
+      <button className="profile-btn">
+        Message
+      </button>
+    </>
+            )}
+            
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ function Sidebar() {
       <button className="sidebar-btn">🤍 Notifications</button>
       <button className="sidebar-btn">💬 Messages</button>
 
-      <Link to="/profile">
+      <Link to={`/profile/${localStorage.getItem("email")}`}>
         <button className="sidebar-btn">👤 Profile</button>
       </Link>
 
