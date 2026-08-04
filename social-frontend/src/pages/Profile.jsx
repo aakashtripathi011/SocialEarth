@@ -3,17 +3,23 @@ import EditProfileModal from "../components/EditProfileModal";
 import Sidebar from "../components/Sidebar";
 
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function Profile() {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState(null);
+  const { email } = useParams();
+  console.log("Email from URL:", email);
 
   const fetchProfile = async () => {
-    console.log(localStorage.getItem("email"));
+   
 
-    const url = `http://localhost:3000/profile?email=${localStorage.getItem("email")}`;
+    const url = `http://localhost:3000/profile?email=${email}`;
 
     console.log(url);
+    console.log(
+  `http://localhost:3000/profile?email=${email}`
+);
 
     const response = await fetch(url);
 
@@ -25,11 +31,12 @@ function Profile() {
       console.log(data.user);
     }
   };
-
-  useEffect(() => {
+    useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [email]);
 
+
+ 
   console.log(user);
 
   return (

@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import "../styles/Search.css";
+import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
@@ -21,6 +22,7 @@ const exploreImages = [
 function Search() {
 const [query, setQuery] = useState("");
 const [results, setResults] = useState([]);
+const navigate = useNavigate();
 useEffect(() => {
   if (query === "") {
     setResults([]);
@@ -75,7 +77,8 @@ useEffect(() => {
 ) : (
   <div className="search-results">
     {results.map((user) => (
-      <div className="user-card" key={user._id}>
+      <div className="user-card" key={user._id}
+       onClick={() => navigate(`/profile/${user.email}`)}>
         <h3>{user.name}</h3>
         <p>@{user.username}</p>
       </div>
