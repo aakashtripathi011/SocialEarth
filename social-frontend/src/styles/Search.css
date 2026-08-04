@@ -69,3 +69,25 @@
 
   transition: transform 0.2s ease;
 }
+
+.search-results{
+    margin-top:30px;
+}
+
+.user-card{
+    padding:15px;
+    border-bottom:1px solid #2a2a2a;
+    cursor:pointer;
+}
+
+.user-card:hover{
+    background:#1b1b1b;
+}
+
+.user-card h3{
+    color:white;
+}
+
+.user-card p{
+    color:gray;
+}

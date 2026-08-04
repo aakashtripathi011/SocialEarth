@@ -156,6 +156,33 @@ app.get("/profile", async (req, res) => {
   }
 });
 
+app.get("/search", async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    const users = await usersCollection
+      .find({
+        $or: [
+          { name: { $regex: q, $options: "i" } },
+          { username: { $regex: q, $options: "i" } },
+        ],
+      })
+      .toArray();
+
+    res.json({
+      success: true,
+      users,
+    });
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.listen(3000, () => {
   console.log("🚀 Server started on port 3000");
 });
