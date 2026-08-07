@@ -29,6 +29,9 @@ function Chat() {
   }, [email]);
 
   const sendMessage = async () => {
+    if (message.trim() === "") {
+      return;
+    }
     const response = await fetch("http://localhost:3000/send-message", {
       method: "POST",
 
@@ -72,6 +75,12 @@ function Chat() {
 
     return () => clearInterval(interval);
   }, [email]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
 
   return (
     <div className="chat-page">
@@ -121,6 +130,7 @@ function Chat() {
             placeholder="Type a message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
 
           <button className="send" onClick={sendMessage}>
