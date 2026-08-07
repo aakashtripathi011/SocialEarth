@@ -2,6 +2,8 @@ import "../styles/Profile.css";
 import EditProfileModal from "../components/EditProfileModal";
 import Sidebar from "../components/Sidebar";
 
+import { useNavigate } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -9,6 +11,7 @@ function Profile() {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState(null);
   const { email } = useParams();
+  const navigate = useNavigate();
 
   const isOwnProfile = email === localStorage.getItem("email");
   
@@ -85,7 +88,7 @@ function Profile() {
         Follow
       </button>
 
-      <button className="profile-btn">
+      <button className="profile-btn"  onClick={() => navigate(`/chat/${email}`)}>
         Message
       </button>
     </>

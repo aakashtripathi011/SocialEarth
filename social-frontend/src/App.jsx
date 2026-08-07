@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
+import Chat from "./pages/Chat";
 
 function App() {
   return (
@@ -15,7 +16,10 @@ function App() {
       <Route path="/profile/:email" element={<Profile />} />
 
       <Route path="/Search" element={<Search />} />
+        <Route path="/chat/:email" element={<Chat />} />
     </Routes>
+   
+
   );
 }
 

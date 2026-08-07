@@ -16,6 +16,7 @@ const url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 
 let usersCollection;
+let messagesCollection;
 
 // Connect to MongoDB
 async function connectDB() {
@@ -28,6 +29,7 @@ async function connectDB() {
 
     // Open Collection
     usersCollection = db.collection("users");
+    messagesCollection = db.collection("messages");
 
     console.log("✅ Database Ready");
   } catch (err) {
@@ -181,6 +183,50 @@ app.get("/search", async (req, res) => {
       message: "Something went wrong",
     });
   }
+});
+
+app.post("/send-message", async (req, res) => {
+  console.log(req.body);
+  try {
+    const { sender, receiver, text } = req.body;
+
+    await messagesCollection.insertOne({
+      sender,
+      receiver,
+      text,
+      createdAt: new Date(),
+    });
+
+    res.json({
+      success: true,
+      message: "Message sent successfully",
+    });
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.get("/messages", async (req, res) => {
+  const { sender, receiver } = req.query;
+
+  const messages = await messagesCollection
+    .find({
+      $or: [
+        { sender, receiver },
+        { sender: receiver, receiver: sender },
+      ],
+    })
+    .toArray();
+
+  res.json({
+    success: true,
+    messages,
+  });
 });
 
 app.listen(3000, () => {
