@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { io } from "socket.io-client";
 import Sidebar from "../components/Sidebar";
 import { Phone, Video, MoreHorizontal } from "react-feather";
 import "../styles/Chat.css";
@@ -10,6 +11,24 @@ function Chat() {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+
+  const socketRef = useRef(null);
+
+  useEffect(() => {
+    socketRef.current = io("http://localhost:3000");
+
+    socketRef.current.emit("user-connected", {
+      email: localStorage.getItem("email"),
+    });
+
+    socketRef.current.on("receive-message", (newMessage) => {
+      setMessages((prev) => [...prev, newMessage]);
+    });
+
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
 
   const fetchUser = async () => {
     const response = await fetch(
@@ -28,32 +47,16 @@ function Chat() {
     fetchMessages();
   }, [email]);
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     if (message.trim() === "") {
       return;
     }
-    const response = await fetch("http://localhost:3000/send-message", {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        sender: localStorage.getItem("email"),
-        receiver: email,
-        text: message,
-      }),
+    socketRef.current.emit("send-message", {
+      sender: localStorage.getItem("email"),
+      receiver: email,
+      text: message,
     });
-
-    const data = await response.json();
-
-    console.log(data);
-
-    if (data.success) {
-      setMessage("");
-      fetchMessages();
-    }
+    setMessage("");
   };
 
   const fetchMessages = async () => {
@@ -67,14 +70,6 @@ function Chat() {
       setMessages(data.messages);
     }
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchMessages();
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [email]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {

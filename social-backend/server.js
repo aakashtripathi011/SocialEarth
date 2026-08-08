@@ -1,11 +1,15 @@
+const { Server } = require("socket.io");
 const cors = require("cors");
 const express = require("express");
+const http = require("http");
 
 const { MongoClient } = require("mongodb");
 const path = require("path");
 
 const app = express();
 app.use(cors());
+
+const server = http.createServer(app);
 
 // Allows Express to read JSON sent from the frontend
 app.use(express.json());
@@ -229,6 +233,52 @@ app.get("/messages", async (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("🚀 Server started on port 3000");
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+  },
+});
+
+const connectedUsers = {};
+
+io.on("connection", (socket) => {
+  console.log("A user connected:", socket.id);
+
+  socket.on("user-connected", (data) => {
+    connectedUsers[data.email] = socket.id;
+
+    console.log(connectedUsers);
+
+    socket.on("send-message", async (data) => {
+      const { sender, receiver, text } = data;
+
+      const newMessage = {
+        sender,
+        receiver,
+        text,
+        createdAt: new Date(),
+      };
+
+      await messagesCollection.insertOne(newMessage);
+
+      const receiverSocketId = connectedUsers[receiver];
+
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit("receive-message", newMessage);
+      }
+      socket.emit("receive-message", newMessage);
+    });
+
+    socket.on("disconnect", () => {
+      for (const email in connectedUsers) {
+        if (connectedUsers[email] === socket.id) {
+          delete connectedUsers[email];
+          break;
+        }
+      }
+    });
+  });
+});
+server.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
